@@ -1,0 +1,341 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Dashboard -
+Analizador de Anuncios{% endblock %} {% block content %}
+<div
+  class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">
+    <i class="fas fa-tachometer-alt me-2 text-primary"></i>
+    Dashboard Principal
+  </h1>
+  <div>
+    <button class="btn btn-outline-primary btn-sm" onclick="refreshData()">
+      <i class="fas fa-sync-alt me-1"></i>
+      Actualizar
+    </button>
+    <button class="btn btn-primary btn-sm" onclick="extractNewAds()">
+      <i class="fas fa-download me-1"></i>
+      Extraer Nuevos Anuncios
+    </button>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div
+  id="loadingOverlay"
+  class="d-none position-fixed w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center"
+  style="background: rgba(0, 0, 0, 0.5); z-index: 9999"
+>
+  <div class="text-center text-white">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <div class="mt-2">Cargando datos...</div>
+  </div>
+</div>
+
+<!-- Métricas Principales -->
+<div class="row mb-4">
+  <div class="col-md-3 mb-3">
+    <div class="card metric-card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-bullhorn fa-2x mb-2"></i>
+        <h5 class="card-title">Total Anuncios</h5>
+        <h2 id="totalAds" class="mb-0">-</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card metric-card success h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-users fa-2x mb-2"></i>
+        <h5 class="card-title">Páginas Únicas</h5>
+        <h2 id="uniquePages" class="mb-0">-</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card metric-card warning h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-calendar fa-2x mb-2"></i>
+        <h5 class="card-title">Días Activos</h5>
+        <h2 id="activeDays" class="mb-0">-</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card metric-card info h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-share-alt fa-2x mb-2"></i>
+        <h5 class="card-title">Plataformas</h5>
+        <h2 id="totalPlatforms" class="mb-0">-</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gráficos -->
+<div class="row mb-4">
+  <!-- Tendencias por Día -->
+  <div class="col-md-8 mb-3">
+    <div class="chart-container">
+      <h5 class="mb-3">
+        <i class="fas fa-line-chart me-2 text-primary"></i>
+        Tendencias de Anuncios (Últimos 30 días)
+      </h5>
+      <canvas id="trendsChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- Distribución por Plataformas -->
+  <div class="col-md-4 mb-3">
+    <div class="chart-container">
+      <h5 class="mb-3">
+        <i class="fas fa-pie-chart me-2 text-primary"></i>
+        Distribución por Plataformas
+      </h5>
+      <canvas id="platformsChart" width="300" height="300"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Top Anunciantes -->
+<div class="row">
+  <div class="col-12">
+    <div class="chart-container">
+      <h5 class="mb-3">
+        <i class="fas fa-trophy me-2 text-primary"></i>
+        Top 10 Anunciantes
+      </h5>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th><i class="fas fa-hashtag"></i></th>
+              <th>Página</th>
+              <th>Total Anuncios</th>
+              <th>Días Activos</th>
+              <th>Promedio/Día</th>
+            </tr>
+          </thead>
+          <tbody id="topAdvertisersTable">
+            <tr>
+              <td colspan="5" class="text-center text-muted">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                Cargando datos...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block extra_js %}
+<script>
+  let trendsChart, platformsChart;
+
+  // Inicializar dashboard
+  document.addEventListener("DOMContentLoaded", function () {
+    loadDashboardData();
+  });
+
+  // Función para cargar datos del dashboard
+  async function loadDashboardData() {
+    showLoading(true);
+
+    try {
+      const response = await fetch("/api/dashboard-data/");
+      const result = await response.json();
+
+      if (result.status === "success") {
+        updateMetrics(result.data.metrics);
+        updateTrendsChart(result.data.trends);
+        updatePlatformsChart(result.data.metrics.platforms);
+        updateTopAdvertisersTable(result.data.top_advertisers);
+      } else {
+        showNotification("Error cargando datos: " + result.message, "danger");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      showNotification("Error conectando con el servidor", "danger");
+    } finally {
+      showLoading(false);
+    }
+  }
+
+  // Actualizar métricas principales
+  function updateMetrics(metrics) {
+    document.getElementById("totalAds").textContent = formatNumber(
+      metrics.total_ads
+    );
+    document.getElementById("uniquePages").textContent = formatNumber(
+      metrics.unique_pages
+    );
+    document.getElementById("totalPlatforms").textContent =
+      metrics.platforms.length;
+
+    // Calcular días activos
+    const startDate = new Date(metrics.date_range.earliest);
+    const endDate = new Date(metrics.date_range.latest);
+    const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+    document.getElementById("activeDays").textContent = formatNumber(daysDiff);
+  }
+
+  // Actualizar gráfico de tendencias
+  function updateTrendsChart(trendsData) {
+    const ctx = document.getElementById("trendsChart").getContext("2d");
+
+    if (trendsChart) {
+      trendsChart.destroy();
+    }
+
+    trendsChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: trendsData.trends.map((item) => formatDate(item.date)),
+        datasets: [
+          {
+            label: "Anuncios por Día",
+            data: trendsData.trends.map((item) => item.ads_count),
+            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "rgba(75, 192, 192, 0.1)",
+            tension: 0.4,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      },
+    });
+  }
+
+  // Actualizar gráfico de plataformas
+  function updatePlatformsChart(platformsData) {
+    const ctx = document.getElementById("platformsChart").getContext("2d");
+
+    if (platformsChart) {
+      platformsChart.destroy();
+    }
+
+    const colors = [
+      "#FF6384",
+      "#36A2EB",
+      "#FFCE56",
+      "#4BC0C0",
+      "#9966FF",
+      "#FF9F40",
+    ];
+
+    platformsChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: platformsData.map((item) => item.platform),
+        datasets: [
+          {
+            data: platformsData.map((item) => item.count),
+            backgroundColor: colors.slice(0, platformsData.length),
+            borderWidth: 2,
+            borderColor: "#fff",
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              padding: 20,
+              usePointStyle: true,
+            },
+          },
+        },
+      },
+    });
+  }
+
+  // Actualizar tabla de top anunciantes
+  function updateTopAdvertisersTable(advertisersData) {
+    const tbody = document.getElementById("topAdvertisersTable");
+
+    if (advertisersData.top_advertisers.length === 0) {
+      tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="text-center text-muted">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No hay datos disponibles
+                </td>
+            </tr>
+        `;
+      return;
+    }
+
+    tbody.innerHTML = advertisersData.top_advertisers
+      .map((advertiser, index) => {
+        const avgPerDay = (
+          advertiser.total_ads / advertiser.active_days
+        ).toFixed(1);
+        const rankIcon =
+          index < 3
+            ? `<i class="fas fa-medal text-${
+                index === 0 ? "warning" : index === 1 ? "secondary" : "warning"
+              }"></i>`
+            : `<span class="text-muted">${index + 1}</span>`;
+
+        return `
+            <tr>
+                <td>${rankIcon}</td>
+                <td><strong>${advertiser.page_name}</strong></td>
+                <td><span class="badge bg-primary">${formatNumber(
+                  advertiser.total_ads
+                )}</span></td>
+                <td>${advertiser.active_days}</td>
+                <td>${avgPerDay}</td>
+            </tr>
+        `;
+      })
+      .join("");
+  }
+
+  // Funciones de utilidad
+  function showLoading(show) {
+    const overlay = document.getElementById("loadingOverlay");
+    if (show) {
+      overlay.classList.remove("d-none");
+    } else {
+      overlay.classList.add("d-none");
+    }
+  }
+
+  function refreshData() {
+    loadDashboardData();
+  }
+
+  async function extractNewAds() {
+    showNotification("Iniciando extracción de nuevos anuncios...", "info");
+    // Aquí se implementaría la llamada a la API para extraer nuevos anuncios
+    // Por ahora solo mostramos un mensaje
+    setTimeout(() => {
+      showNotification(
+        "Extracción completada. Actualizando datos...",
+        "success"
+      );
+      loadDashboardData();
+    }, 2000);
+  }
+</script>
+{% endblock %}

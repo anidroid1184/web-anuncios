@@ -1,0 +1,89 @@
+# ==========================================
+# ANALIZADOR DE ANUNCIOS - REQUIREMENTS MINIMAL
+# ==========================================
+# Dependencias esenciales para el flujo actual
+# Python: 3.11+
+
+# ==========================================
+# CORE WEB FRAMEWORKS
+# ==========================================
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+
+# ==========================================
+# AI SERVICES
+# ==========================================
+openai>=1.0.0  # OpenAI API para GPT-4o (análisis de anuncios)
+
+# ==========================================
+# JSON PARSING & REPAIR
+# ==========================================
+json-repair==0.25.3  # Reparación de JSON malformado de OpenAI
+
+# ==========================================
+# DATA PROCESSING & ANALYSIS
+# ==========================================
+pandas==2.1.3  # Manipulación de dataframes y CSV
+numpy==1.25.2  # Operaciones numéricas
+
+# ==========================================
+# HTTP CLIENTS & NETWORKING
+# ==========================================
+httpx==0.25.2  # Cliente HTTP asíncrono
+requests==2.31.0  # Cliente HTTP tradicional
+aiohttp>=3.9.0  # Cliente HTTP asíncrono para batch processing
+
+# ==========================================
+# WEB SCRAPING & AUTOMATION
+# ==========================================
+apify-client==1.7.1  # SDK oficial de Apify para scraping
+
+# ==========================================
+# CONFIGURATION & ENVIRONMENT
+# ==========================================
+python-decouple==3.8  # Configuración desde .env
+python-dotenv==1.0.0  # Carga de variables de entorno
+
+# ==========================================
+# FILE & MEDIA HANDLING
+# ==========================================
+Pillow>=10.1.0  # Procesamiento de imágenes (JPEG, PNG, conversión, resize)
+aiofiles>=23.2.1  # Operaciones asíncronas con archivos
+opencv-python==4.8.1.78  # Extracción de frames de videos
+
+# ==========================================
+# PDF GENERATION
+# ==========================================
+reportlab==4.0.7  # Generación de PDFs profesionales
+
+# ==========================================
+# TUNNELING (OPCIONAL - para endpoints de backup)
+# ==========================================
+pyngrok==7.0.0  # Exponer archivos locales (usado en endpoints alternativos)
+
+# ==========================================
+# UTILITIES
+# ==========================================
+python-dateutil==2.8.2  # Parsing de fechas
+tqdm==4.66.1  # Barras de progreso
+
+# ==========================================
+# NOTAS DE INSTALACIÓN
+# ==========================================
+# 1. Crear entorno virtual:
+#    python -m venv .venv
+#
+# 2. Activar entorno:
+#    Windows: .venv\Scripts\activate
+#
+# 3. Instalar dependencias:
+#    pip install -r requirements_minimal.txt
+#
+# 4. Configurar variables de entorno en .env:
+#    - OPENAI_API_KEY
+#    - APIFY_API_TOKEN
+#
+# 5. Ejecutar desde raíz:
+#    python main.py

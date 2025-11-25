@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Anuncios AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Outfit Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <h1>Analizador de Anuncios</h1>
+            <p>Optimiza tus creativos con Inteligencia Artificial</p>
+        </header>
+
+        <div class="content-grid">
+            <!-- Left Column: Form -->
+            <div class="card">
+                <form id="analysisForm">
+                    <!-- Mode Selector -->
+                    <div class="form-group">
+                        <label>
+                            <i data-lucide="layers"></i> Modo de Análisis
+                        </label>
+                        <div class="mode-selector">
+                            <button type="button" class="mode-btn active" data-mode="url">
+                                <i data-lucide="link"></i>
+                                <span>Analizar URL</span>
+                            </button>
+                            <button type="button" class="mode-btn" data-mode="runid">
+                                <i data-lucide="database"></i>
+                                <span>Analizar Run ID</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- URL Input (visible by default) -->
+                    <div class="form-group" id="urlGroup">
+                        <label for="adUrl">
+                            <i data-lucide="link"></i> URL del Anuncio
+                        </label>
+                        <div class="input-wrapper">
+                            <textarea id="adUrl" placeholder="Pega aquí el enlace del anuncio..." rows="3"></textarea>
+                            <div class="input-icon">
+                                <i data-lucide="globe"></i>
+                            </div>
+                        </div>
+                        <small class="helper-text">Soporta Facebook Ad Library, Instagram Posts y TikTok Ads.</small>
+                    </div>
+
+                    <!-- Run ID Input (hidden by default) -->
+                    <div class="form-group hidden" id="runIdGroup">
+                        <label for="runId">
+                            <i data-lucide="database"></i> Run ID
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="runId" placeholder="Ingresa el Run ID del análisis previo...">
+                            <div class="input-icon">
+                                <i data-lucide="hash"></i>
+                            </div>
+                        </div>
+                        <small class="helper-text">ID del run generado por un scraping anterior.</small>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="submitBtn">
+                        <i data-lucide="sparkles"></i>
+                        <span>Analizar Anuncio</span>
+                    </button>
+                </form>
+
+                <!-- Results Section (hidden by default) -->
+                <div id="resultsSection" class="results-section hidden">
+                    <div class="results-header">
+                        <i data-lucide="check-circle"></i>
+                        <h3>Análisis Completado</h3>
+                    </div>
+                    <div class="results-content">
+                        <p id="resultsMessage"></p>
+                        <div class="results-links">
+                            <a id="pdfLink" href="#" target="_blank" class="result-link">
+                                <i data-lucide="file-text"></i>
+                                <span>Descargar PDF</span>
+                            </a>
+                            <a id="jsonLink" href="#" target="_blank" class="result-link">
+                                <i data-lucide="code"></i>
+                                <span>Ver JSON</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Guide -->
+            <div class="guide-panel">
+                <h2 class="guide-title">
+                    <i data-lucide="zap"></i> Cómo funciona
+                </h2>
+                <ul class="guide-steps">
+                    <li class="guide-step">
+                        <div class="step-icon">
+                            <i data-lucide="layers"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>1. Elige el Modo</h3>
+                            <p>Analiza desde una URL nueva o usa un Run ID de un análisis anterior.</p>
+                        </div>
+                    </li>
+                    <li class="guide-step">
+                        <div class="step-icon">
+                            <i data-lucide="copy"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>2. Ingresa los Datos</h3>
+                            <p>Pega la URL del anuncio o el Run ID según el modo seleccionado.</p>
+                        </div>
+                    </li>
+                    <li class="guide-step">
+                        <div class="step-icon">
+                            <i data-lucide="bar-chart-2"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>3. Obtén Resultados</h3>
+                            <p>Recibe un reporte PDF detallado con análisis profesional y recomendaciones.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

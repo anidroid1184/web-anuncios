@@ -1,0 +1,128 @@
+# Analizador de Anuncios
+# Archivos a ignorar en el repositorio
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
+
+# FastAPI
+.pytest_cache/
+
+# Entornos virtuales
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Credenciales - NUNCA SUBIR
+credenciales.json
+credsDrive.json
+apify-token.txt
+*.pem
+*.key
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Dependency directories
+node_modules/
+
+# Redis
+dump.rdb
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Legacy - archivos originales
+jsonprueba.json
+*.jpg
+*.png
+*.mp4
+
+
+# Archivos internos
+docs/
+deprecated/
+api_service/drive/credentials.json
+*.csv
+/api_service/datasets/saved_datasets/facebook
+/api_service/datasets
+/.venv
+/.venv
+/.venv/Scripts
+/.venv
+*.cfg
+/.venv
+/.venv/Lib
+api_service/credentials/credentials.json
+/.venv
+/.venv/Scripts
+/.venv
+*.exe
+/api_service/app/processors/datasets/saved_datasets/facebook/yJeKF48KH4pPFspOY
+/api_service/app/processors/datasets
+*.json

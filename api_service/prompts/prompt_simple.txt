@@ -1,0 +1,56 @@
+{
+  "campaign_name": "Campaña Lanzamiento Q4 - Tech Gadgets",
+  "executive_summary": "El análisis comparativo revela que la audiencia responde significativamente mejor a narrativas dinámicas con audio ASMR y cortes rápidos (fast-paced) frente a testimonios estáticos. El video ganador capitaliza la tendencia de 'Unboxing sensorial', mientras que el perdedor falla en retener la atención en los primeros 3 segundos debido a una introducción hablada lenta.",
+  "comparative_analysis": [
+    {
+      "status": "Video Ganador",
+      "ad_id": "video_1038_variant_A",
+      "real_metrics": {
+        "vtr": "68.5%",
+        "shares": "1,240",
+        "ctr": "2.8%"
+      },
+      "forensic_analysis": {
+        "hook_0_3s": "Zoom rápido al producto con sonido de 'click' satisfactorio. No hay voz, solo sonido ambiente inmersivo.",
+        "audio": "Estilo ASMR de alta fidelidad. Sin música de fondo, solo efectos de sonido (SFX) del producto siendo usado.",
+        "editing_pace": "Muy rápido (0.8s por corte). Sincronizado con los sonidos del producto."
+      },
+      "scores_qualitative": {
+        "visual_composition": 9,
+        "message_copywriting": 7,
+        "target_psychology": 10,
+        "audio_effectiveness": 10,
+        "conversion_potential": 9
+      },
+      "justification": "La correlación directa entre el VTR alto y el hook sensorial indica que el usuario prefiere 'sentir' el producto antes que escuchar una explicación técnica.",
+      "recommendations": "Replicar el estilo ASMR para la línea de accesorios. Mantener los videos bajo 15 segundos."
+    },
+    {
+      "status": "Video Perdedor",
+      "ad_id": "video_1365_variant_B",
+      "real_metrics": {
+        "vtr": "12.3%",
+        "shares": "45",
+        "ctr": "0.4%"
+      },
+      "forensic_analysis": {
+        "hook_0_3s": "Plano medio de una persona hablando a cámara (Talking Head) presentándose. Fondo blanco estático.",
+        "audio": "Voz en off monótona con música de stock corporativa genérica (bajo volumen).",
+        "editing_pace": "Lento (4s por corte). Tomas largas sin cambios de ángulo."
+      },
+      "scores_qualitative": {
+        "visual_composition": 4,
+        "message_copywriting": 5,
+        "target_psychology": 3,
+        "audio_effectiveness": 2,
+        "conversion_potential": 2
+      },
+      "justification": "La caída del VTR en el segundo 2 confirma que la introducción personal ('Hola, soy...') es un 'scroll-stopper' negativo en esta plataforma.",
+      "recommendations": "Eliminar introducciones habladas. Mover el producto al primer frame. Cambiar la música corporativa por algo con más BPM."
+    }
+  ],
+  "general_recommendations": [
+    "Priorizar el audio inmersivo sobre la música de stock en futuras creatividades.",
+    "Eliminar completamente los formatos 'Talking Head' para la etapa de Top of Funnel (Tráfico frío)."
+  ]
+}

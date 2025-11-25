@@ -1,0 +1,167 @@
+# ==========================================
+# ANALIZADOR DE ANUNCIOS - REQUIREMENTS
+# ==========================================
+# Entorno virtual: .venv en la raíz del proyecto
+# Última actualización: Noviembre 2025
+# Python: 3.11+
+
+# ==========================================
+# CORE WEB FRAMEWORKS
+# ==========================================
+
+# FastAPI - Framework asíncrono para APIs REST
+fastapi==0.104.1
+uvicorn[standard]==0.24.0  # Servidor ASGI con hot-reload
+pydantic==2.5.0  # Validación de datos y modelos
+python-multipart==0.0.6  # Soporte para form-data y file uploads
+
+# Django - Framework para frontend y admin
+Django==4.2.7
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-extensions==3.2.3
+django-widget-tweaks==1.5.0
+whitenoise==6.6.0  # Servir archivos estáticos
+
+# ==========================================
+# GOOGLE CLOUD SERVICES
+# ==========================================
+google-cloud-bigquery==3.12.0  # Análisis de datos y consultas SQL
+google-cloud-storage==2.10.0  # Almacenamiento de archivos
+google-api-python-client==2.108.0  # Cliente para Google APIs
+google-auth-oauthlib==1.1.0  # Autenticación OAuth2
+google-auth==2.23.4  # Credenciales y autenticación
+google-generativeai  # Google Gemini AI para análisis de anuncios
+
+# ==========================================
+# AI SERVICES
+# ==========================================
+openai>=1.0.0  # OpenAI API para GPT-3.5/GPT-4
+
+# ==========================================
+# JSON PARSING & REPAIR
+# ==========================================
+json-repair==0.25.3  # Reparación avanzada de JSON malformado
+
+# ==========================================
+# TUNNELING & LOCAL FILE SHARING
+# ==========================================
+pyngrok==7.0.0  # Exponer archivos locales por HTTP con URLs públicas
+
+# ==========================================
+# DATA PROCESSING & ANALYSIS
+# ==========================================
+pandas==2.1.3  # Manipulación de dataframes
+numpy==1.25.2  # Operaciones numéricas
+pyarrow==14.0.1  # Soporte Parquet y Apache Arrow
+tqdm==4.66.1  # Barras de progreso para operaciones largas
+
+# ==========================================
+# HTTP CLIENTS & NETWORKING
+# ==========================================
+httpx==0.25.2  # Cliente HTTP asíncrono
+requests==2.31.0  # Cliente HTTP tradicional
+aiohttp>=3.9.0  # Cliente HTTP asíncrono (para batch processing)
+
+# ==========================================
+# WEB SCRAPING & AUTOMATION
+# ==========================================
+apify-client==1.7.1  # SDK oficial de Apify para scraping
+
+# ==========================================
+# BACKGROUND TASKS & CACHING
+# ==========================================
+celery==5.3.4  # Tareas asíncronas en background
+redis==4.6.0  # Cache y message broker para Celery
+
+# ==========================================
+# VISUALIZATION & DASHBOARDS
+# ==========================================
+plotly==5.17.0  # Gráficos interactivos
+dash==2.14.2  # Dashboards web interactivos
+
+# ==========================================
+# CONFIGURATION & ENVIRONMENT
+# ==========================================
+python-decouple==3.8  # Configuración desde .env
+python-dotenv==1.0.0  # Carga de variables de entorno
+
+# ==========================================
+# DATE & TIME UTILITIES
+# ==========================================
+python-dateutil==2.8.2  # Parsing y manipulación de fechas/horas
+
+# ==========================================
+# FILE & MEDIA HANDLING
+# ==========================================
+Pillow>=10.1.0  # Procesamiento y optimización de imágenes (JPEG, PNG, etc.)
+aiofiles>=23.2.1  # Operaciones asíncronas con archivos
+opencv-python==4.8.1.78  # Procesamiento de videos y extracción de frames
+
+# ==========================================
+# IMAGE PROCESSING, HEATMAPS & COLOR TOOLS
+# Herramientas para generar mapas de calor, paletas y transformaciones
+# - matplotlib / seaborn: visualización y generación de heatmaps
+# - scikit-image: utilidades de procesamiento de imagen (filtros, remuestreo)
+# - colorthief: extracción de paleta de colores representativa
+# - orjson: serialización JSON rápida (útil para escribir el JSON numérico)
+# ==========================================
+matplotlib
+seaborn
+scikit-image
+colorthief
+orjson
+
+# ==========================================
+# PDF GENERATION
+# ==========================================
+reportlab==4.0.7  # Generación de PDFs profesionales
+
+# ==========================================
+# DEVELOPMENT & DEBUGGING
+# ==========================================
+python-json-logger==2.0.7  # Logging estructurado en JSON
+pytest==7.4.3  # Framework de testing
+pytest-django==4.7.0  # Testing para Django
+pytest-asyncio==0.21.1  # Testing para código asíncrono
+
+# ==========================================
+# SECURITY & VALIDATION
+# ==========================================
+cryptography==41.0.7  # Encriptación y seguridad
+
+# ==========================================
+# UTILITIES & COMPATIBILITY
+# ==========================================
+six==1.16.0  # Compatibilidad Python 2/3
+setuptools>=65.0.0  # Build tools
+
+# ==========================================
+# DATABASE ADAPTERS (OPTIONAL)
+# ==========================================
+# Descomentar según necesidad:
+# psycopg2-binary==2.9.9  # PostgreSQL
+# pymongo==4.6.0  # MongoDB
+
+# ==========================================
+# NOTAS DE INSTALACIÓN
+# ==========================================
+# 1. Crear entorno virtual:
+#    python -m venv .venv
+#
+# 2. Activar entorno:
+#    Windows: .venv\Scripts\activate
+#    Linux/Mac: source .venv/bin/activate
+#
+# 3. Instalar dependencias:
+#    pip install -r requirements.txt
+#
+# 4. Configurar variables de entorno en .env
+#
+# 5. Ejecutar API:
+#    cd api_service
+#    python -m uvicorn main:app --reload --port 8001
+#
+# 6. Ejecutar Django:
+#    cd frontend
+#    python manage.py runserver 8000
